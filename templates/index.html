@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WAR Prediction</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">BASE BALL</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5000/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:5000/predict">Result</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+              </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+  <h1>WAR Prediction</h1>
+
+  <style>
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  .form-column {
+    flex-basis: calc(33.33% - 10px);
+  }
+
+  .form-column:first-child {
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
+  .form-column label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-column input {
+    margin-bottom: 10px;
+  }
+
+  .submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-left: 700px;
+    margin-right: auto;
+  }
+
+  .submit-button button {
+    margin-top: 10px;
+  }
+  </style>
+
+  <form action="/predict" method="post">
+    <div class="form-row">
+    <div class="form-column">
+      <label for="k_per_9">K/9:</label>
+      <input type="text" name="k_per_9" id="k_per_9">
+
+      <label for="bb_per_9">BB/9:</label>
+      <input type="text" name="bb_per_9" id="bb_per_9">
+
+      <label for="ops">OPS:</label>
+      <input type="text" name="ops" id="ops">
+
+      <label for="whip">WHIP:</label>
+      <input type="text" name="whip" id="whip">
+
+      <label for="zone_percentage">Zone:</label>
+      <input type="text" name="zone_percentage" id="zone_percentage">
+    </div>
+
+    <div class="form-column">
+      <label for="fastball_velocity">직구구속:</label>
+      <input type="text" name="fastball_velocity" id="fastball_velocity"><br>
+
+      <label for="slider_velocity">슬라구속:</label>
+      <input type="text" name="slider_velocity" id="slider_velocity"><br>
+
+      <label for="curve_velocity">커브구속:</label>
+      <input type="text" name="curve_velocity" id="curve_velocity"><br>
+
+      <label for="changeup_velocity">첸졉구속:</label>
+      <input type="text" name="changeup_velocity" id="changeup_velocity"><br>
+
+      <label for="splitter_velocity">스플구속:</label>
+      <input type="text" name="splitter_velocity" id="splitter_velocity"><br>
+
+      <label for="sinker_velocity">싱커구속:</label>
+      <input type="text" name="sinker_velocity" id="sinker_velocity"><br>
+
+      <label for="knuckle_velocity">너클구속:</label>
+      <input type="text" name="knuckle_velocity" id="knuckle_velocity"><br>
+
+      <label for="other_velocity">기타구속:</label>
+      <input type="text" name="other_velocity" id="other_velocity"><br>
+    </div>
+
+    <div class="form-column">
+      <label for="fastball_percentage">직구구사율:</label>
+      <input type="text" name="fastball_percentage" id="fastball_percentage"><br>
+
+      <label for="slider_percentage">슬라구사율:</label>
+      <input type="text" name="slider_percentage" id="slider_percentage"><br>
+
+      <label for="curve_percentage">커브구사율:</label>
+      <input type="text" name="curve_percentage" id="curve_percentage"><br>
+
+      <label for="changeup_percentage">첸졉구사율:</label>
+      <input type="text" name="changeup_percentage" id="changeup_percentage"><br>
+
+      <label for="splitter_percentage">스플구사율:</label>
+      <input type="text" name="splitter_percentage" id="splitter_percentage"><br>
+
+      <label for="sinker_percentage">싱커구사율:</label>
+      <input type="text" name="sinker_percentage" id="sinker_percentage"><br>
+
+      <label for="knuckle_percentage">너클구사율:</label>
+      <input type="text" name="knuckle_percentage" id="knuckle_percentage"><br>
+
+      <label for="other_percentage">기타구사율:</label>
+      <input type="text" name="other_percentage" id="other_percentage"><br>
+    </div>
+    </div>
+
+    <div class="submit-button">
+        <button type="submit">예측</button>
+    </div>
+  </form>
+
+  <div id="result" style="display: none;">
+    <h2>Prediction Result</h2>
+    <p>WAR: <span id="war_result"></span></p>
+  </div>
+</body>
+</html>
