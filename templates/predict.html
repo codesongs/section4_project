@@ -35,7 +35,7 @@
     <h2>Prediction Result</h2>
     {% if WAR == none %}
       <p>데이터를 입력해주세요</p>
-      <a href="http://127.0.0.1:5000/">홈으로 돌아가기</a>
+      <a href="{{ url_for('index') }}">홈으로 돌아가기</a>
     {% else %}
       <p>WAR: {{ WAR }}</p>
     {% endif %}
