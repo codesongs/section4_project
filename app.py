@@ -1,5 +1,7 @@
 import pickle
 from flask import Flask, request, jsonify, Blueprint, render_template
+import jwt
+import time
 
 model = None
 with open('model/model.pkl','rb') as pickle_file:
@@ -36,6 +38,10 @@ def predict():
 
     # 결과 반환
     return render_template('predict.html', WAR=war_pred)
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
